@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include "Tank.h"
 #include "AIController.h"
 #include "TankAIController.generated.h"
+
+class ATank;
 
 /**
  * 
@@ -21,6 +22,7 @@ public:
 
 
 	void BeginPlay() override;
+	void Tick(float deltaTime) override;
 	
-	
+	ATank* GetPlayerTank() const;
 };

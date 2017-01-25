@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
+#include "TankBarrel.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 
 
@@ -8,8 +10,9 @@
 ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	tankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming component"));
 }
 
 // Called when the game starts or when spawned
@@ -31,5 +34,28 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
 	Super::SetupPlayerInputComponent(InputComponent);
 
+}
+
+
+void ATank::AimAt(FVector hitLocation)
+{
+	tankAimingComponent->AimAt(hitLocation, LaunchSpeed);
+
+}
+
+void ATank::setBarrelReference(UTankBarrel* BarreltToSet)
+{
+	tankAimingComponent->setBarrelReference(BarreltToSet);
+}
+
+void ATank::setTurretReference(UTankTurret* TurretToSet)
+{
+	tankAimingComponent->setTurretReference(TurretToSet);
+}
+
+//Fire
+void ATank::fire()
+{
+	UE_LOG(LogTemp, Warning, TEXT("You are firiiiiiiing."), *FString(""));
 }
 
